@@ -1,0 +1,201 @@
+﻿@model Inspinia_MVC5_SeedProject.Models.Aluno
+
+@{
+    ViewBag.Title = "Cadastrar Aluno";
+}
+
+
+
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+
+
+            <div class="ibox float-e-margins ">
+                <div class="ibox-title">
+                    <h4>Novo Aluno</h4>
+
+
+                    <div class="ibox-content">
+                        @using (Html.BeginForm("Create", "Alunos", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+
+                            <div class="form-horizontal">
+                                @Html.ValidationSummary(true)
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        @Html.LabelFor(model => model.Nome, "Nome", new { @class = "control-label col-md-2" })
+                                        @Html.EditorFor(model => model.Nome)
+                                        @Html.ValidationMessageFor(model => model.Nome,null,new {@class="text-danger" })
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.LabelFor(model => model.DataNascimento, "Nascimento", new { @class = "control-label col-md-2" })
+                                        @Html.EditorFor(model => model.DataNascimento)
+                                        @Html.ValidationMessageFor(model => model.DataNascimento, null, new { @class = "text-danger" })
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.LabelFor(model => model.Cpf, "CPF", new { @class = "control-label col-md-2" })
+                                        @Html.EditorFor(model => model.Cpf)
+                                        @Html.ValidationMessageFor(model => model.Cpf, null, new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+                                <br />
+                                <br />
+                                <div class="row">
+
+                                    <div class="col-md-2">
+                                        @Html.LabelFor(model => model.Cep, "Cep", new { @class = "control-label col-md-2" })
+                                        @Html.EditorFor(model => model.Cep)
+                                        @Html.ValidationMessageFor(model => model.Cep, null, new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        @Html.LabelFor(model => model.tipoLogradouro, "Tipo", new { @class = "control-label col-md-2" })
+                                        @Html.EditorFor(model => model.tipoLogradouro)
+                                        @Html.ValidationMessageFor(model => model.tipoLogradouro)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.LabelFor(model => model.Logradouro, "Logradouro", new { @class = "control-label col-md-2" })
+                                        @Html.EditorFor(model => model.Logradouro)
+                                        @Html.ValidationMessageFor(model => model.Logradouro)
+                                    </div>
+
+                                </div>
+
+                                <br />
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        @Html.LabelFor(model => model.Cidade, "Cidade", new { @class = "control-label col-md-2" })
+                                        @Html.EditorFor(model => model.Cidade)
+                                        @Html.ValidationMessageFor(model => model.Cidade)
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.LabelFor(model => model.Estado, "Estado", new { @class = "control-label col-md-2" })
+                                        @Html.EditorFor(model => model.Estado)
+                                        @Html.ValidationMessageFor(model => model.Estado)
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.LabelFor(model => model.Telefone, "Telefone", new { @class = "control-label col-md-2" })
+                                        @Html.EditorFor(model => model.Telefone)
+                                        @Html.ValidationMessageFor(model => model.Telefone)
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.LabelFor(model => model.Celular, "Celular", new { @class = "control-label col-md-2" })
+                                        @Html.EditorFor(model => model.Celular)
+                                        @Html.ValidationMessageFor(model => model.Celular)
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.LabelFor(model => model.Email, "E-mail", new { @class = "control-label col-md-2" })
+                                        @Html.EditorFor(model => model.Email)
+                                        @Html.ValidationMessageFor(model => model.Email)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <br />
+                                    <br />
+                                    <div class="col-md-4">
+                                        <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                            <div class="form-control" data-trigger="fileinput">
+                                                <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                                <span class="fileinput-filename"></span>
+                                            </div>
+                                            <span class="input-group-addon btn btn-default btn-file">
+                                                <span class="fileinput-new">Select file</span>
+                                                <span class="fileinput-exists">Change</span>
+                                                @*<input type="file" name="..." />*@
+                                                <input type="file" name="file" id="file" class="upload" />
+                                            </span>
+                                            <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <br />
+                                    <br />
+                                    <div class="col-lg-5">
+
+                                    </div>
+                                    <div class="form-group ">
+                                        <button type="submit" value="Create" id="enviarForm" class="btn btn-info btn-circle btn-lg">
+
+                                            <i class="fa fa-check"></i>
+                                        </button>
+
+
+
+                                        <a href="~/Alunos/Index" title="Cancelar" class="btn btn-info btn-circle btn-lg">
+                                            <i class="fa fa-times"></i>
+
+                                        </a>
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script src="~/Scripts/telasScripts/aluno/aluno.js"></script>
+    <script src="~/Scripts/jquery.mask.js"></script>
+    <script src="~/Scripts/jquery.mask.min.js"></script>
+    <script src="~/Scripts/jasny-bootstrap.min.js"></script>
+
+
+    <script>
+
+        $('#Cpf').mask("999.999.999-99");
+        $('#Cep').mask("99.999-999");
+        $('#Telefone').mask("(99)9999.9999");
+        $('#Celular').mask("(99)9 9999.9999");
+        $('#DataNascimento').mask('99/99/9999');
+
+    </script>
+
+
+
+    <script>
+        $('#Cep').change(function teste() {
+            $('#Logradouro').val('');
+            $('#tipoLogradouro').val('');
+            $('#Cidade').val('');
+            $('#Estado').val('');
+
+            var cep = $('#Cep').val();
+
+            $.getJSON("http://cep.republicavirtual.com.br/web_cep.php?cep=" + cep + "&formato=json", {}, function (data) {
+
+                if (data.resultado == '1') {
+                    $('#Logradouro').val(data.logradouro);
+                    $('#tipoLogradouro').val(data.tipo_logradouro);
+                    $('#Cidade').val(data.cidade);
+                    $('#Estado').val(data.uf);
+                }
+            });
+
+
+        });
+
+    </script>
+
+}

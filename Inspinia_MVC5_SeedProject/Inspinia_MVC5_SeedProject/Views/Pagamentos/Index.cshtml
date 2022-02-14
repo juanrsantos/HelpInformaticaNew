@@ -1,0 +1,139 @@
+﻿@model IEnumerable<Inspinia_MVC5_SeedProject.Models.MatriculaCursoView>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Financeiro </h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="index.html"><strong>Gerar Mensalidades </strong></a>
+            </li>
+
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight ecommerce">
+
+
+    <div class="ibox-content m-b-sm border-bottom">
+        <div class="row">
+            <div class="ibox-tools">
+                @using (Html.BeginForm())
+                {
+                    <div class="row">
+                        <div class="col-lg-6 form-group">
+                            <table>
+                                <tr>
+                                    <td width="300px">
+                                        @Html.TextBox("nome", null, new { @class = "form-control", placeholder = "Pesquisar por nome" })
+
+                                    </td>
+                                    <td>
+                                    <td>
+                                        -
+                                    </td>
+
+                                    <td>
+                                        <input type="submit" value="Buscar" class="btn btn-primary" />
+                                    </td>
+
+                                </tr>
+                            </table>
+                        </div>
+                        
+                    </div>
+                }
+            </div>
+           
+      
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox">
+                <div class="ibox-content">
+                   
+                        <table class="footable table table-stripped toggle-arrow-tiny">
+                            <thead>
+                                <tr>
+                                    <th>Matricula ID</th>
+                                    <th data-hide="phone">ALUNOS</th>
+                                    <th data-hide="phone">DATA MATRICULA</th>
+
+                                    <th class="text-left"> Gerar Mensalidades</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.MatriculaId
+                                        </td>
+                                        <td>
+                                            @item.NomeAluno
+                                        </td>
+
+                                        <td>
+                                            <strong>@item.DataMatricula </strong>
+                                        </td>
+
+
+                                        <td width="5px">
+
+                                            <a href="@Url.Action("Contrato",new { idmatricula= item.MatriculaId})"> <img src="~/img/documento.png" /> </a>
+                         
+                                    </tr>
+
+
+                                }
+
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="7">
+                                        <ul class="pagination float-right"></ul>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                   
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+@section Scripts {
+
+    <script src="~/Scripts/telasScripts/aluno/aluno.js"></script>
+    <script src="~/Scripts/jquery.mask.js"></script>
+    <script src="~/Scripts/jquery.mask.min.js"></script>
+    <script src="~/Scripts/jasny-bootstrap.min.js"></script>
+
+
+    <script>
+
+        $('.cpf').mask("999.999.999-99");
+        $('#Cep').mask("99.999-999");
+        $('#Telefone').mask("(99)9999.9999");
+        $('#Celular').mask("(99)9 9999.9999");
+        $('#DataNascimento').mask('99/99/9999');
+
+    </script>
+}

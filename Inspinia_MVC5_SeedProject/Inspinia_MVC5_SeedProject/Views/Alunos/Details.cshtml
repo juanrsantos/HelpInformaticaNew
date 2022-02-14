@@ -1,0 +1,153 @@
+﻿@model Inspinia_MVC5_SeedProject.Models.Aluno
+
+@{
+    ViewBag.Title = "Details";
+
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Detalhes</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="index.html">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a>Alunos</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <strong>Detalhes</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInRight">
+        <div class="col-md-4">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>Dados Pessoais</h5>
+                </div>
+                <div>
+                    <div class="ibox-content">
+                        <img alt="image" class="img-fluid" width="200" height="200" src="@Model.Foto">
+                      
+                    </div>
+                    <div class="ibox-content profile-content">
+                        <h4><strong>@Model.Nome</strong></h4>
+                        <p> CPF: @Model.Cpf</p>
+
+                        <p>DATA NASC: @Model.DataNascimento  </p>
+
+                        <p><i class="fa fa-map-marker"></i> @Model.tipoLogradouro @Model.Logradouro</p>
+                        <h5>
+                            CONTATO: <strong> @Model.Telefone - @Model.Celular   </strong>
+
+                        </h5>
+
+                        <p>E-MAIL: @Model.Email</p>
+
+                        <div id="botao">
+     
+                        </div>
+                        <div class="user-button">
+                            <div class="row">
+                                <div class="col-md-6">
+   
+                                    @Html.ActionLink("Alterar Dados", "Edit", new { id = Model.AlunoId }, new { @class = "btn btn-primary btn-sm btn-block" })
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.ActionLink("Voltar ", "Index", null, new { @class = "btn btn-default btn-sm btn-block" })
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>Matriculas Geradas</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <a href="#" class="dropdown-item">Config option 1</a>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-item">Config option 2</a>
+                            </li>
+                        </ul>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+
+                    <div>
+                        <div class="feed-activity-list">
+
+                            <div class="feed-element">
+                               
+                                <div class="media-body ">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+
+                                                <th> </th>
+                                                <th> IDENTIFICADOR DA MATRICULA </th>
+                                                <th>DATA MATRICULA </th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr></tr>
+                                            @foreach (var item in Model.listaMatriculasAtivas)
+                                            {
+                                                <tr>
+                                                    <td><span class="glyphicon glyphicon-star" style="color:burlywood"></span></td>
+                                                    <td> @item.MatriculaId</td>
+                                                    <td>@item.DataMatricula</td>
+
+                                                    <td><a href="../ExcluirMatricula/?idMatricula=@item.MatriculaId"><span class="glyphicon glyphicon-remove-circle" style="color:red"></span>  </a></td>
+
+                                                </tr>
+
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+                
+
+                        <a href="@Url.Action("gerarMatricula", new {idAluno = Model.AlunoId })" class="btn btn-primary btn-block m"> <i class="glyphicon glyphicon-cog"></i> Gerar</a>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+

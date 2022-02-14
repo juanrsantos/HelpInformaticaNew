@@ -1,0 +1,472 @@
+﻿@model Inspinia_MVC5_SeedProject.Models.PagamentoMatriculaView
+  
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Detalhes do Pacote Contratado</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                Home
+            </li>
+            <li class="breadcrumb-item">
+                <a>Gestor Financeiro</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <strong>Pacote Contratado</strong>
+            </li>
+        </ol>
+    </div>
+
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox product-detail">
+                <div class="ibox-content">
+
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            <div class="product-images">
+
+                                @foreach (var item in Model.listaCursosMatriculados)
+                                {
+                                    <div>
+                                        <div class="fundo">
+                                            <img src="@item.Foto" class="quadro" />
+                                        </div>
+                                    </div>
+
+                                }
+
+
+                            </div>
+                        </div>
+         
+           
+
+                        <div class="col-md-7">
+                            <div class="m-t-md">
+                                <h2 class="product-main-price">   Pacote Contratado</h2>
+                            </div>
+                            @Html.Hidden("MatriculaId", Model.MatriculaId)
+                            @Html.Hidden("ValorAberto", Model.ValorPacote)
+                            @Html.Hidden("PagamentoId",Model.PagamentoMensalidadeId)
+
+                            <h3 class="product-main-price">Nº de Contrato: @Model.MatriculaId </h3>
+                            <div class=" col-md-4 red-bg">Data do Contrato: @Model.dataMatricula   </div><br />
+
+                            <div class="m-t-md">
+                                <h2 class="product-main-price"> @string.Format("{0:C}", Model.ValorPacote) <small class="text-muted"> (Valor Total) </small> </h2>
+                            </div>
+
+                            <hr>
+                            <h3>Cursos Matriculados:</h3>
+                            <br />
+                            @foreach (var item in Model.listaCursosMatriculados)
+                            {
+                                <h4><span class="fa fa-check"> </span> @item.NomeCurso <br />  </h4>
+
+                            }
+                            <br />
+                            <!-- Button trigger modal -->
+                            <button id="gerarPagamento" class="btn btn-warning"><span class="glyphicon glyphicon-cog"></span> Gerar Pagamento </button>
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+                                <span class="glyphicon glyphicon-cog"> </span>  Parcelas
+
+                            </button>
+                            <hr>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="ibox product-detail">
+                                        <div class="ibox-content">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th> </th>
+                                                        <th> ID PAGAMENTO </th>
+                                                        <th>DATA VENCIMENTO</th>
+                                                        <th> VR ABERTO  </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr></tr>
+                                                    @foreach (var item in Model.listaPagamentoMensalidade)
+                                                    {
+                                                <tr>
+                                                    <td><span class="glyphicon glyphicon-star" style="color:burlywood"></span></td>
+                                                    <td>@item.IdPagamentoMensalidade</td>
+                                                    <td>@item.DataVencimento</td>
+                                                    <td>R$ @item.ValorPagamento</td>
+
+                                               
+                                                    <td><a href="@Url.Action("ExcluirPag","Pagamentos", new {id = @item.IdPagamentoMensalidade })"><span class="glyphicon glyphicon-remove-circle" style="color:red"></span>  </a></td>
+                                                    <td> </td>
+                                                </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal -->
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="row">
+    <div class="modal fade" id="exampleModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4 class="modal-title" id="exampleModalLabel"><i class="bi bi-gear"></i> <img src="~/img/documento.png" /> GERAR PARCELAS  </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Valor da parcela</label>
+                            <input class="form-control" id="ValorPagamento" placeholder="R$" required>
+                            <small id="desconto" class="form-text text-muted">Parcela  (valor em real) </small>
+                        </div>
+                        <div class="form-group">
+                            <label for="example-date-input" class="col-2 col-form-label">Data Vencimento </label>
+                            <div class="col-10">
+                                <input class="form-control" type="date" value="@DateTime.Now.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss")" id="DataVencimento" required>
+                            </div>
+                            <small id="emailHelp" class="form-text text-muted">Os próximos vencimentos será no mesmo dia escolhido </small>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button id="gerarPagMensalidade" class="btn btn-success"><span class="glyphicon glyphicon-cog"></span> Gerar Pagamento </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<header>
+
+    <link href="~/Scripts/slick-theme.css" rel="stylesheet" />
+    <link href="~/Scripts/slick.css" rel="stylesheet" />
+
+    <link href="~/Scripts/style.css" rel="stylesheet" />
+
+
+    <style>
+
+
+
+        .selectoption {
+            width: 100%;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 4px;
+            background-color: rgba(7, 142, 35, 0.25);
+        }
+
+        .fundo {
+            display: block;
+            align-content: center;
+            width: 500px;
+            height: 300px;
+            background-color: #e9e9e9;
+        }
+
+        .quadro {
+            display: block;
+            align-content: center;
+            padding-left: 20%;
+            padding-right: 20%;
+            padding-bottom: 10%;
+            width: 450px;
+            height: 3460px;
+        }
+    </style>
+
+</header>
+<!-- Mainly scripts -->
+
+@section Scripts {
+
+
+    <!-- slick carousel-->
+    <script src="~/Scripts/slick.min.js"></script>
+
+    <script>
+
+
+
+        $(document).ready(function () {
+
+
+            $('#gerarPagamento').click(function () {
+                var dados = {
+                    DataPrimeiroPagamento: $('#datapagamento').val(),
+                    DataCriacaoPagamento: new Date,
+                    MatriculaId: $('#MatriculaId').val(),
+                    ValorAberto: $('#ValorAberto').val(),
+                    DataVencimento: $('#DataVencimento').val(),
+                    ValorPagamento: $('#ValorPagamento').val()
+                }
+                    $.ajax({
+                        type: "POST",
+                        url: "../../Pagamentos/GerarPagamento",
+                        data: JSON.stringify(dados),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (result) {
+                            if (result.success) {
+                                var idmatricula = $('#MatriculaId').val();
+                                toastr.warning('Pagamento Gerado com sucesso');
+                                window.location.href = '/Pagamentos/Contrato?idMatricula=' + idmatricula;
+                            }
+                            else {
+                                toastr.warning('Já Existe Pagamento para essa matricula');
+                                window.location.href = '/Pagamentos/Contrato?idMatricula=' + idmatricula;
+                            }
+                        }
+                    });
+            });
+
+
+            $('#gerarPagMensalidade').click(function () {
+                var dados = {
+               
+                    MatriculaId: $('#MatriculaId').val(),
+                    DataVencimento: $('#DataVencimento').val(),
+                    ValorPagamento: $('#ValorPagamento').val()
+                }
+
+                if (dados.ValorPagamento == 0 || dados.ValorPagamento == "") {
+                    $('#ValorPagamento').css('border', '1px solid red');
+                    $('#ValorPagamento').focus();
+
+                }
+
+                if (dados.DataVencimento == null || dados.DataVencimento == "") {
+                    $('#DataVencimento').css('border', '1px solid red');
+                    $('#DataVencimento').focus();
+                    
+                }
+              
+                else {
+                    $.ajax({
+                        type: "POST",
+                        url: "../../Pagamentos/gerarPagamentoMensalidade",
+                        data: JSON.stringify(dados),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (result) {
+                            if (result.success) {
+                                var idmatricula = $('#MatriculaId').val();
+                                toastr.warning('Pagamento Gerado com sucesso');
+                                window.location.href = '/Pagamentos/Contrato?idMatricula=' + idmatricula;
+                            }
+                            else if (result.erro == "Gerar Pagamento Antes") {
+                                toastr.warning('Favor gerar o  pagamento primeiro !');
+                            }
+                            else if (result.erro == "Não é possivel fazer o mesmo lançamento no mesmo mês")
+                            {
+                                toastr.warning('Já existe lançamento para o mês !');
+                            }
+
+                            else {
+                                
+                                toastr.error('Atenção, Não é possivel fazer mais lançamentos para esta matricula.');
+                              
+                            }
+                        }
+                    });
+
+                }
+               
+            });
+
+
+
+
+            window.onload = function () {
+                var dados = {
+                    DataCriacaoPagamento: new Date,
+                    MatriculaId: $('#MatriculaId').val(),
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "../../Pagamentos/AtivarDesativarBotao",
+                    data: JSON.stringify(dados),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        if (result) {
+                            $("#gerarPagamento").attr("disabled", "disabled");
+                            toastr.success('Já Existe Pagamento Gerado !');
+                        }
+                    
+                    }
+                });
+            }
+
+            $('#excluirLancamento').click(function () {
+
+                var data = {
+                    idPagamentoMensalidade: $('#PagamentoId').val()
+                }
+
+                $.ajax({
+                    type: "POST",
+                    data: JSON.stringify(data),
+                    url: "../../Pagamentos/excluirLancamento",
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (result) {
+                        if (result.success) {
+
+                            var idmatricula = $('#MatriculaId').val();
+                            window.location.href = '../Matriculas/Create?idMatricula=' + idmatricula;
+
+                        }
+
+                    }
+                })
+            })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            $('.product-images').slick({
+                dots: true
+            });
+
+            var x, i, j, l, ll, selElmnt, a, b, c;
+            /* Look for any elements with the class "custom-select": */
+            x = document.getElementsByClassName("custom-select");
+            l = x.length;
+            for (i = 0; i < l; i++) {
+                selElmnt = x[i].getElementsByTagName("select")[0];
+                ll = selElmnt.length;
+                /* For each element, create a new DIV that will act as the selected item: */
+                a = document.createElement("DIV");
+                a.setAttribute("class", "select-selected");
+                a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+                x[i].appendChild(a);
+                /* For each element, create a new DIV that will contain the option list: */
+                b = document.createElement("DIV");
+                b.setAttribute("class", "select-items select-hide");
+                for (j = 1; j < ll; j++) {
+                    /* For each option in the original select element,
+                    create a new DIV that will act as an option item: */
+                    c = document.createElement("DIV");
+                    c.innerHTML = selElmnt.options[j].innerHTML;
+                    c.addEventListener("click", function (e) {
+                        /* When an item is clicked, update the original select box,
+                        and the selected item: */
+                        var y, i, k, s, h, sl, yl;
+                        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+                        sl = s.length;
+                        h = this.parentNode.previousSibling;
+                        for (i = 0; i < sl; i++) {
+                            if (s.options[i].innerHTML == this.innerHTML) {
+                                s.selectedIndex = i;
+                                h.innerHTML = this.innerHTML;
+                                y = this.parentNode.getElementsByClassName("same-as-selected");
+                                yl = y.length;
+                                for (k = 0; k < yl; k++) {
+                                    y[k].removeAttribute("class");
+                                }
+                                this.setAttribute("class", "same-as-selected");
+                                break;
+                            }
+                        }
+                        h.click();
+                    });
+                    b.appendChild(c);
+                }
+                x[i].appendChild(b);
+                a.addEventListener("click", function (e) {
+                    /* When the select box is clicked, close any other select boxes,
+                    and open/close the current select box: */
+                    e.stopPropagation();
+                    closeAllSelect(this);
+                    this.nextSibling.classList.toggle("select-hide");
+                    this.classList.toggle("select-arrow-active");
+                });
+            }
+
+            function closeAllSelect(elmnt) {
+                /* A function that will close all select boxes in the document,
+                except the current select box: */
+                var x, y, i, xl, yl, arrNo = [];
+                x = document.getElementsByClassName("select-items");
+                y = document.getElementsByClassName("select-selected");
+                xl = x.length;
+                yl = y.length;
+                for (i = 0; i < yl; i++) {
+                    if (elmnt == y[i]) {
+                        arrNo.push(i)
+                    } else {
+                        y[i].classList.remove("select-arrow-active");
+                    }
+                }
+                for (i = 0; i < xl; i++) {
+                    if (arrNo.indexOf(i)) {
+                        x[i].classList.add("select-hide");
+                    }
+                }
+            }
+
+            /* If the user clicks anywhere outside the select box,
+            then close all select boxes: */
+            document.addEventListener("click", closeAllSelect);
+
+        });
+
+
+    </script>
+
+
+
+
+
+
+}
+

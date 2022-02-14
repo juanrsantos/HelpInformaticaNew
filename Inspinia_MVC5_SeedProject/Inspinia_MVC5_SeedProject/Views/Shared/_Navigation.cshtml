@@ -1,0 +1,132 @@
+﻿<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="clear">
+                            <span class="block m-t-xs">
+                                <strong class="font-bold">
+                                    <img src="~/img/logo - Copia.png" width="170" height="130" />
+                                </strong>
+                            </span> <span class="text-muted text-xs block"> <b class="caret"></b></span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <li><a href="@Url.Action("Login","Account")">Sair</a></li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    IN+
+                </div>
+            </li>
+            <li class="@Html.IsSelected(action: "Index")">
+                <a href="@Url.Action("Index", "Home")"><i class="fa fa-laptop"></i> <span class="nav-label">Pagina Inicial</span> </a>
+            </li>
+
+
+            <li class="">
+                <a href="#"><i class="fa fa-group"></i> <span class="nav-label">Gestão de Alunos </span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse" style="height: 0px;">
+
+                    <li class="">
+                        <a href="@Url.Action("Create", "Alunos")"> <span class="nav-label">Novo Aluno </span><span class="fa arrow"></span></a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "Alunos")"> <span class="nav-label">Exibir Todos Ativos </span><span class="fa arrow"></span></a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Inativos", "Alunos")"> <span class="nav-label">Alunos Inativos </span><span class="fa arrow"></span></a>
+                    </li>
+
+
+
+
+
+                </ul>
+            </li>
+
+
+            <li class="">
+                <a href="#"><i class="fa fa-plus-square"></i> <span class="nav-label">Gestão de Matriculas </span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse" style="height: 0px;">
+
+                    <li class="">
+                        <a href="@Url.Action("Index", "Matriculas")"> <span class="nav-label">Vincular Cursos/Aluno </span><span class="fa arrow"></span></a>
+                    </li>
+
+
+
+                </ul>
+            </li>
+            @if (User.IsInRole("ADMINISTRADOR"))
+            {
+
+                <li class="">
+                    <a href="#"><i class="fa fa-user-plus" aria-hidden="true"> </i> <span class="nav-label">Novo Usuário</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse" style="height: 0px;">
+
+                        <li class="">
+
+                            <a href="@Url.Action("Register", "Account")"> <span class="nav-label">Adicionar </span><span class="fa arrow"></span></a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="">
+                    <a href="#"><i class="fa fa-drivers-license-o"></i> <span class="nav-label">Gestão de Cursos </span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse" style="height: 0px;">
+
+                        <li class="">
+                            <a href="@Url.Action("Create", "Cursos")"> <span class="nav-label">Novo Curso </span><span class="fa arrow"></span></a>
+                        </li>
+                        <li class="">
+                            <a href="@Url.Action("Index", "Cursos")"> <span class="nav-label"> Exibir Cursos Ativos </span><span class="fa arrow"></span></a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+
+
+            }
+            else
+            {
+
+            }
+
+            <li class="">
+                <a href="#"><i class="fa fa-dollar"></i> <span class="nav-label">  Pagamentos </span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse" style="height: 0px;">
+                    <li class="">
+                        <a href="@Url.Action("Index", "Pagamentos")"> <span class="nav-label"> Gerar Mensalidades </span><span class="fa arrow"></span></a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "Pagamentos")"> <span class="nav-label"> Pagamento Avulso </span><span class="fa arrow"></span></a>
+                    </li>
+
+
+                </ul>
+            </li>
+
+            <li class="">
+                <a href="#"><i class="fa fa-money"></i> <span class="nav-label"> Recebimentos </span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse" style="height: 0px;">
+                    <li class="">
+                        <a href="@Url.Action("Index", "Recebimentos")"> <span class="nav-label"> Receitas / Mês </span><span class="fa arrow"></span></a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "Pagamentos")"> <span class="nav-label"> Inadimplentes / Mês  </span><span class="fa arrow"></span></a>
+                    </li>
+
+                </ul>
+            </li>
+
+
+
+
+        </ul>
+    </div>
+</nav>

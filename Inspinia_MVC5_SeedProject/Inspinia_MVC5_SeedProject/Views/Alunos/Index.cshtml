@@ -1,0 +1,127 @@
+﻿@model IEnumerable < Inspinia_MVC5_SeedProject.Models.Aluno>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+
+        <ol class="breadcrumb">
+            <li class="active">
+
+
+            </li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="ibox-tools">
+                        @using (Html.BeginForm())
+                        {
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <table>
+                                        <tr>
+                                            <td width="px">
+                                                @Html.TextBox("nome", null, new { @class = "form-control input-lg", placeholder = "Pesquisar por nome" })
+
+                                            </td>
+                                            <td>
+                                            <td>
+                                                -
+                                            </td>
+
+                                            <td>
+                                                <input type="submit" value="Buscar" class="btn btn-lg btn-primary" />
+                                            </td>
+
+                                        </tr>
+                                    </table>
+                                </div>
+                                <p style="padding-right:25px">@Html.ActionLink("Novo Aluno", "Create", null, new { @class = "btn btn-lg btn-primary" }) </p>
+                 
+
+                            </div>
+                        }
+                    </div>
+                    <br />
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-md-4">
+                                <div class="contact-box center-version">
+                                    <a href="/Alunos/Details/?id=@item.AlunoId">
+                                        @if (@item.Foto != null)
+                                        {
+                                            <img alt="image" class="img-circle" src="@item.Foto">
+                                        }
+                                        else
+                                        {
+                                            <img alt="image" class="img-circle" src="~/img/logo - Copia.png" />
+                                        }
+
+                                        <h3 class="m-b-xs"><strong>@item.Nome</strong></h3>
+                                        <div class="datanasc">@item.DataNascimento.ToString()</div>
+                
+                                        <address class="m-t-md">
+                                            <strong class="cpf">@item.Cpf </strong><br />
+                                            @item.Logradouro ,<br>
+                                            @item.Cidade, @item.Estado<br>
+                                            <abbr title="Phone">Tel:</abbr> @item.Telefone
+                                        </address>
+
+                                    </a>
+                                    <div class="contact-box-footer">
+                                        @Html.ActionLink("Alterar", "Edit", new { id = item.AlunoId }, new { @class = "btn btn-success btn-xs" }) &nbsp;
+                                        @Html.ActionLink("Detalhes/Matricular", "Details", new { id = item.AlunoId }, new { @class = "btn btn-primary btn-xs" })&nbsp;
+                                        @Html.ActionLink("Deletar", "Delete", new { id = item.AlunoId }, new { @class = "btn btn-warning btn-xs" })
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        }
+
+                    </div>
+                </div>
+                    
+                </div>
+            </div>
+        </div>
+   
+    </div>
+
+
+
+
+
+
+@section Scripts {
+
+    <script src="~/Scripts/jquery.mask.js"></script>
+    <script src="~/Scripts/jquery.mask.min.js"></script>
+
+    <script>
+
+
+
+        $(window).on("load", function () {
+            $('.cpf').mask("999.999.999-99");
+            $('.datanasc').mask("99/99/9999");
+            $('#Telefone').mask("(99)9999.9999");
+            $('#Celular').mask("(99)9 9999.9999");
+        });
+
+
+
+    </script>
+}
+

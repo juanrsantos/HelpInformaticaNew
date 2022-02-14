@@ -1,0 +1,272 @@
+﻿@model Inspinia_MVC5_SeedProject.Models.Matricula
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2></h2>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-12">
+        <h2>Vincular Cursos/Matricula </h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="index.html">Matriculas</a>
+            </li>
+
+
+
+            <li class="breadcrumb-item">
+                <a>Adicionar Cursos</a>
+            </li>
+
+        </ol>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+
+
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5> <strong>Nº MATRICULA: @Model.MatriculaId   </strong>  </h5>
+                    <input type="hidden" id="MatriculaId" value="@Model.MatriculaId" />
+                </div>
+
+
+                <div class="ibox-content">
+
+                    <form class="m-t-md" action="#">
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label"> Cursos Ofertados: </label>
+
+                            <div class="col-md-8">
+
+                                <select class="select2_demo_2 form-control" multiple="multiple">
+                                    @foreach (var item in Model.objMatView.listaCursosOfertados)
+                                    {
+                                        <option value="@item.CursoId">@item.NomeCurso</option>
+                                    }
+
+                                </select><span class="form-text"> Selecione os cursos ... </span>
+
+                            </div>
+
+                            <button id="SalvarCursos" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-resize-small"></span> Vincular Curso </button>
+
+                        </div>
+                     
+
+                        <div class="hr-line-dashed bg-success"></div>
+
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label"> Cursos Matriculados ao Aluno: </label>
+
+                            <div class="ibox-content">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#CursoId</th>
+                                            <th>Nome Curso </th>
+                                            <th>Carga Horária </th>
+                                            <th></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.objMatView.listaCursosMatriculados)
+                                        {
+                                            <tr>
+                                                <td>@item.CursoId </td>
+                                                <td>@item.NomeCurso</td>
+                                                <td>@item.CargaHoraria<span>hs</span></td>
+                                                <td><a id="excluirMatriculaCurso" class="glyphicon glyphicon-remove-circle" style="color:red"></a></td>
+                                            </tr>
+
+
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+  
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+<head>
+
+    <link href="~/Scripts/telasScripts/aluno/jquery.bootstrap-touchspin.css" rel="stylesheet" />
+    <link href="~/Scripts/telasScripts/aluno/clockpicker.css" rel="stylesheet" />
+    <link href="~/Scripts/telasScripts/aluno/select2.css" rel="stylesheet" />
+    <link href="~/Scripts/telasScripts/aluno/select2.min.css" rel="stylesheet" />
+
+
+</head>
+
+<!-- Mainly scripts -->
+
+
+
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/jquery.steps.js"></script>
+    <script src="~/Scripts/jquery.steps.min.js"></script>
+    <script src="~/Scripts/telasScripts/aluno/jquery.bootstrap-touchspin.js"></script>
+    <script src="~/Scripts/telasScripts/aluno/select2.full.js"></script>
+    <script src="~/Scripts/telasScripts/aluno/select2.full.min.js"></script>
+   
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+
+    <script>
+  
+        $(document).ready(function () {
+
+          
+            $('#SalvarCursos').click(function () {
+
+                var listaSelecionada = $(".select2_demo_2").val();
+                var list = [];
+                for (i = 0; i < listaSelecionada.length; i++) {
+
+                    var idmatricula = $('#MatriculaId').val();
+                    var matcurso = {
+
+                        MatriculaId: idmatricula,
+                        CursoId: listaSelecionada[i]
+                    };
+                    list.push(matcurso);
+                }
+                
+
+                if (list.length != null) {
+                    $.ajax({
+                        type: "POST",
+                        url: "../../Matriculas/Create",
+                        data: JSON.stringify(list),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (data) {
+
+                           
+                                var idmatricula = $('#MatriculaId').val();
+                            window.location.href = '../Matriculas/Create?idMatricula=' + idmatricula;
+                           
+
+                         
+                        },
+                        error: function () {
+                            alert('Error occured');
+                        }
+                    });
+
+
+
+                                
+                }
+            });
+        function msgAlerta(data) {
+
+            if (data.success == true) {
+               swal("Good job!", "You clicked the button!", "success");
+            }
+            else {
+                swal("Good job!", "You clicked the button!", "error");
+            }
+
+        }
+            $('#excluirMatriculaCurso').click(function () {
+
+                var data = {
+                    idMatricula: $('#MatriculaId').val()
+                }
+
+                $.ajax({
+                    type: "POST",
+                    data: JSON.stringify(data),
+                    url: "../../Matriculas/ExcluirMatriculaCurso",
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (result) {
+                        if (result.success) {
+
+                            var idmatricula = $('#MatriculaId').val();
+                            window.location.href = '../Matriculas/Create?idMatricula=' + idmatricula;
+
+                        }
+
+                    }
+                })
+            })
+
+
+
+            $(".select2_demo_2").select2({
+
+            });
+
+            $('#gerarPagamento').click(function () {
+
+                var dados = {
+                    Pacote: $('#selectedpacote').val(),
+                    QParcelas: $('#quantparcelas').val(),
+                    DescontoPorc: $('#dporcentagem').val(),
+                    DataPagamento: $('#datapagamento').val(),
+                    MatriculaId: $('#MatriculaId').val(),
+
+                }
+
+                if (dados != null) {
+                    $.ajax({
+                        type: "POST",
+                        url: "../../Matriculas/GerarPagamento",
+                        data: JSON.stringify(dados),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (result) {
+                            if (result.success) {
+                                var idmatricula = $('#MatriculaId').val();
+                                window.location.href = '/Matriculas/Create?idMatricula=' + idmatricula;
+                            }
+                        }
+                    });
+                }
+            });
+
+            $(".touchspin1").TouchSpin({
+                buttondown_class: 'btn btn-danger',
+                buttonup_class: 'btn btn-primary'
+            });
+
+        });
+
+    </script>
+
+
+    }
+
+

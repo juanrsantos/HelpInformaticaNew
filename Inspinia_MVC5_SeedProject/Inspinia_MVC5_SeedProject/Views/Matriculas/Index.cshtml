@@ -1,0 +1,149 @@
+﻿@model Inspinia_MVC5_SeedProject.Models.Matricula
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+
+        <ol class="breadcrumb">
+            <li class="active">
+
+
+            </li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="ibox-tools">
+                        @using (Html.BeginForm())
+                        {
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <table>
+                                        <tr>
+                                            <td width="400px">
+                                                @Html.TextBox("nome", null, new { @class = "form-control input-lg", placeholder = "Pesquisar pelo nome" })
+
+                                            </td>
+                                            <td>
+                                            <td>
+                                                -
+                                            </td>
+
+                                            <td>
+                                                <input type="submit" value="Buscar" class="btn btn-lg btn-primary" />
+                                            </td>
+
+                                        </tr>
+                                    </table>
+                                </div>
+                               
+                            </div>
+                        }
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="ibox">
+                                <div class="ibox-content">
+
+                                    <table class="footable table table-stripped toggle-arrow-tiny">
+                                        <thead>
+                                            <tr>
+                                                <th>MATRICULA ID</th>
+                                                <th data-hide="phone">NOME ALUNO</th>
+                                                <th data-hide="phone">DATA MATRICULA</th>
+
+                                                <th class="text-left">ADICIONAR CURSOS/ALUNO</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach (var item in Model.objMatriculaAtivaView.listaMatriculasAtivasView)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @item.MatriculaId
+                                                    </td>
+                                                    <td>
+                                                      @item.Aluno.Nome
+                                                    </td>
+
+                                                    <td>
+                                                        @item.DataMatricula 
+                                                    </td>
+
+
+                                                    <td width="5px">
+
+
+                                                        @Html.ActionLink(" ", "Create", new { idMatricula = @item.MatriculaId }, new { @class = "glyphicon glyphicon-list fa-2x"})
+                                                </tr>
+
+
+                                            }
+
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <ul class="pagination float-right"></ul>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="body">
+                    <div class="row">
+
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+@section Scripts {
+
+    <script src="~/Scripts/jquery.mask.js"></script>
+    <script src="~/Scripts/jquery.mask.min.js"></script>
+
+    <script>
+
+
+
+        $(window).on("load", function () {
+            $('.cpf').mask("999.999.999-99");
+            $('.datanasc').mask("99/99/9999");
+            $('#Telefone').mask("(99)9999.9999");
+            $('#Celular').mask("(99)9 9999.9999");
+        });
+
+
+
+    </script>
+}
+
